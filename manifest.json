@@ -1,14 +1,16 @@
 {
-  "name": "Page Redder",
+  "name": "Github All Clicker",
   "action": {},
   "manifest_version": 3,
   "version": "0.1",
-  "description": "Turns the page red when you click the icon",
+  "description": "Click All Button!",
   "permissions": [
     "activeTab",
-    "scripting"
+    "scripting",
+    "tabs"
   ],
   "background": {
-    "service_worker": "background.js"
-  }
+    "service_worker": "listener.js"
+  },
+  "host_permissions": ["https://*/*"]
 }
