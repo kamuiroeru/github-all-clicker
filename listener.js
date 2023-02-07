@@ -8,8 +8,6 @@ const isTargetPage = (url) => {
   return matched !== null && matched.length > 0;
 };
 
-let initialized = false;
-
 const inject = (tabId) => {
   chrome.scripting
     .executeScript({
@@ -21,28 +19,11 @@ const inject = (tabId) => {
     });
 };
 
-const initialize = (tabId) => {
-  chrome.scripting
-    .executeScript({
-      target: { tabId },
-      files: ["initialize.js"],
-    })
-    .then(() => {
-      console.log("Initialized");
-      initialized = true;
-      inject(tabId);
-    });
-};
-
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === "complete") {
     const url = tab.url;
     if (typeof url === "string" && isTargetPage(url)) {
-      if (!initialized) {
-        initialize(tab.id);
-      } else {
-        inject(tab.id);
-      }
+      inject(tab.id);
     }
   }
 });
