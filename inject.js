@@ -2,7 +2,7 @@
 // FYI: https://stackoverflow.com/questions/41699451/snippets-identifier-has-already-been-declared
 {
   const COMMENT_BUTTON_QUERY =
-    ".review-thread-reply button.review-simple-reply-button";
+    ".review-thread-reply button.review-simple-reply-button,button.review-simply-reply-button";
 
   const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
