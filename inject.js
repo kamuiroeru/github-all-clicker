@@ -8,22 +8,28 @@
 
   const COMMENT_ALL_BUTTON_ID = "commit_all_btn__created_by_extension";
 
-  const addBtnIfAbsent = () => {
+  const addBtn = () => {
+    const prevBtn = document.getElementById(COMMENT_ALL_BUTTON_ID);
+    if (prevBtn !== null) {
+      prevBtn.remove();
+    }
     if (document.getElementById(COMMENT_ALL_BUTTON_ID) === null) {
       const commentAllBtn = document.createElement("button");
+      const enabledCommentBtn = [];
+      document.querySelectorAll(COMMENT_BUTTON_QUERY).forEach((value) => {
+        if (!value.disabled) {
+          enabledCommentBtn.push(value);
+        }
+      });
       commentAllBtn.id = COMMENT_ALL_BUTTON_ID;
       commentAllBtn.type = "button";
-      commentAllBtn.onclick = () => {
-        document
-          .querySelectorAll(COMMENT_BUTTON_QUERY)
-          .forEach(async (value) => {
-            if (!value.disabled) {
-              value.click();
-              await sleep(500);
-            }
-          });
+      commentAllBtn.onclick = async () => {
+        for (const btn of enabledCommentBtn) {
+          btn.click();
+          await sleep(500);
+        }
       };
-      commentAllBtn.innerText = "Comment All!!";
+      commentAllBtn.innerText = `Submit ${enabledCommentBtn.length} Comments`;
       commentAllBtn.setAttribute(
         "style",
         `
