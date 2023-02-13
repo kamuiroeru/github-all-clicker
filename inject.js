@@ -107,7 +107,7 @@
   );
   document
     .querySelectorAll(
-      '.TimelineItem-body.my-0 turbo-frame > details > div[data-view-component="true"]'
+      '.TimelineItem-body.my-0 details > div[data-view-component="true"]'
     )
     .forEach((value, key, parent) => {
       showResolvedPanelObserver.observe(value, {
@@ -126,8 +126,14 @@
   document
     .querySelectorAll(".TimelineItem-body.my-0")
     .forEach((value, key, parent) => {
-      if (value.firstElementChild.tagName === "turbo-frame".toUpperCase()) {
-        doneFetchMoreObserver.observe(value, { childList: true });
+      if (value.firstElementChild != null) {
+        const tagName = value.firstElementChild.tagName;
+        if (
+          tagName === "turbo-frame".toUpperCase() ||
+          tagName === "details".toUpperCase()
+        ) {
+          doneFetchMoreObserver.observe(value, { childList: true });
+        }
       }
     });
 }
