@@ -1,4 +1,4 @@
-# GitHub Click All
+# GitHub All Clicker
 
 ## Demo
 
